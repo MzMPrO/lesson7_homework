@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="col-md-12">
+                            <h5 class="">{% if object %}Edit {{ object.name }} {% else %}Add profession{% endif %}</h5>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" autocomplete=off enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ form.name.errors }}
+                                        <label class="form-control-label" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                                        {{ form.name }}
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group text-left mb-0">
+                                        {% if object %}
+                                        <button class="btn btn-warning waves-effect waves-light mr-1" type="submit">
+                                            Save changes
+                                        </button>
+                                        {% else %}
+                                        <button class="btn btn-success waves-effect waves-light mr-1" type="submit">
+                                            Add
+                                        </button>
+                                        {% endif %}
+                                        <a href="{% url 'professions-list' %}" class="btn btn-danger waves-effect waves-light">
+                                            Cancel
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
