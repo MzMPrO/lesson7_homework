@@ -1,13 +1,10 @@
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect
-from django.views.generic import TemplateView, CreateView, UpdateView, DetailView, ListView
+from django.views.generic import CreateView, UpdateView, DetailView, ListView
 
 from branch.forms import Form
 from branch.models import Branch
-
-
-class IndexView(TemplateView):
-    template_name = 'index.html'
+from department.views import login_required
 
 
 class BranchListView(ListView):
@@ -27,20 +24,29 @@ class BranchListView(ListView):
         context = super().get_context_data(**kwargs)
         context['search'] = self.request.GET.get('search', "")
         return context
+
+
 class BranchCreateView(CreateView):
     model = Branch
     form_class = Form
     success_url = '/branchs/list/'
     template_name = 'branch/form.html'
+
+
 class BranchUpdateView(UpdateView):
     model = Branch
     form_class = Form
     success_url = '/branchs/list/'
     template_name = 'branch/form.html'
+
+
 class BranchDetailsView(DetailView):
     model = Branch
     template_name = 'branch/detail.html'
     context_object_name = 'branch'
+
+
+@login_required
 def branch_delete(request, pk):
     branch = get_object_or_404(Branch, pk=pk)
     branch.delete()

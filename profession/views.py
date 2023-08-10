@@ -6,9 +6,6 @@ from profession.forms import Form
 from profession.models import Profession
 
 
-class IndexView(TemplateView):
-    template_name = 'index.html'
-
 
 class ProfessionListView(ListView):
     model = Profession

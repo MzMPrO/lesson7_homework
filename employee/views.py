@@ -8,8 +8,6 @@ from employee.models import Employee
 from profession.models import Profession
 
 
-class IndexView(TemplateView):
-    template_name = 'index.html'
 
 
 class EmployeeListView(ListView):
